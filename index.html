@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday corrupt_tej 🎉</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-start: #0f071a;
+      --bg-end: #1a0d2e;
+      --gift: #ff6bcb;
+      --gift-dark: #d946ef;
+      --ribbon: #a78bfa;
+      --text: #f1f5f9;
+      --card: rgba(30, 27, 50, 0.88);
+      --glow: rgba(255, 107, 203, 0.55);
+      --sparkle: #fff9c4;
+      --sparkle-glow: rgba(255, 249, 196, 0.8);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      perspective: 1200px;
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      transition: opacity 1s ease 0.4s;
+    }
+
+    .container.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 500;
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1.2s ease-out;
+    }
+
+    h1.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Gift Box */
+    .gift-wrapper {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin: 0 auto;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: all 1.3s ease;
+    }
+
+    .gift-wrapper.hide {
+      opacity: 0;
+      transform: scale(0.5) translateY(100px);
+      pointer-events: none;
+    }
+
+    .gift {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, var(--gift), var(--gift-dark));
+      border-radius: 16px;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(217,70,239,0.5), inset 0 -20px 40px rgba(0,0,0,0.4);
+      animation: float 3.8s infinite ease-in-out;
+    }
+
+    .ribbon-h, .ribbon-v {
+      position: absolute;
+      background: var(--ribbon);
+      box-shadow: 0 0 20px rgba(167,139,250,0.6);
+    }
+
+    .ribbon-h {
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 24px;
+      transform: translateY(-50%);
+    }
+
+    .ribbon-v {
+      top: 0;
+      left: 50%;
+      width: 24px;
+      height: 100%;
+      transform: translateX(-50%);
+    }
+
+    .lid {
+      position: absolute;
+      top: -58px;
+      left: -15px;
+      width: 210px;
+      height: 78px;
+      background: linear-gradient(145deg, var(--gift-dark), var(--gift));
+      border-radius: 16px 16px 0 0;
+      transform-origin: bottom center;
+      transition: transform 1.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    }
+
+    .gift.open .lid {
+      transform: rotateX(140deg) translateY(-30px);
+    }
+
+    /* Card */
+    .card {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.6) translateY(80px);
+      width: 90%;
+      max-width: 380px;
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 2.6rem 2.2rem;
+      text-align: center;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.7), 0 0 60px var(--glow);
+      border: 1px solid rgba(167,139,250,0.35);
+      opacity: 0;
+      transition: all 1.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 5;
+    }
+
+    .card.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1) translateY(0);
+    }
+
+    .card h2 {
+      font-size: 2.3rem;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(90deg, #ff6bcb, #a78bfa, #fde68a, #ff6bcb);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 300%;
+      animation: shine 5s linear infinite;
+    }
+
+    @keyframes shine {
+      0%,100% { background-position: 0% }
+      50%     { background-position: 200% }
+    }
+
+    .card strong {
+      display: block;
+      font-size: 1.45rem;
+      color: #e0e7ff;
+      margin: 1.2rem 0;
+    }
+
+    .card p {
+      font-size: 1.12rem;
+      line-height: 1.7;
+      color: #cbd5e1;
+    }
+
+    /* Sparkles Layer */
+    #sparkles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 6;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+
+    #sparkles.visible {
+      opacity: 0.9;
+    }
+
+    .sparkle {
+      position: absolute;
+      background: var(--sparkle);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--sparkle-glow), 0 0 24px var(--sparkle-glow);
+      pointer-events: none;
+      animation: twinkle 2.5s infinite ease-in-out;
+      opacity: 0;
+    }
+
+    .sparkle.star {
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 10px solid var(--sparkle);
+      background: transparent;
+      box-shadow: 0 0 15px var(--sparkle-glow);
+      transform: rotate(45deg);
+    }
+
+    @keyframes twinkle {
+      0%, 100%   { transform: scale(0.4) rotate(0deg); opacity: 0.3; }
+      50%        { transform: scale(1.3) rotate(180deg); opacity: 1; }
+    }
+
+    /* Floating Balloons */
+    .balloon {
+      position: absolute;
+      bottom: -140px;
+      font-size: 4.8rem;
+      user-select: none;
+      pointer-events: none;
+      animation: rise linear forwards;
+      z-index: 3;
+    }
+
+    @keyframes rise {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0.9; }
+      100% { transform: translateY(-150vh) rotate(20deg); opacity: 0; }
+    }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      width: 12px;
+      height: 20px;
+      top: 50%;
+      left: 50%;
+      border-radius: 4px 2px 3px 1px;
+      z-index: 4;
+      pointer-events: none;
+      animation: explode 3s forwards;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    @keyframes explode {
+      0% {
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        opacity: 1;
+      }
+      15% {
+        transform: translate(-50%, -50%) scale(1.6) rotate(180deg);
+      }
+      100% {
+        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.4) rotate(1440deg);
+        opacity: 0;
+      }
+    }
+
+    /* Background particles */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      background: var(--ribbon);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--ribbon);
+      animation: drift linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes drift {
+      0%   { transform: translateY(120vh) scale(0.3); opacity: 0; }
+      8%   { opacity: 0.7; }
+      92%  { opacity: 0.6; }
+      100% { transform: translateY(-40vh) scale(0.5); opacity: 0; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50%      { transform: translateY(-22px) rotate(4deg); }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 2rem; }
+      .gift-wrapper { width: 140px; height: 140px; }
+      .lid { width: 170px; height: 60px; top: -45px; left: -15px; }
+      .card { padding: 2rem 1.6rem; max-width: 340px; }
+      .card h2 { font-size: 2rem; }
+      .balloon { font-size: 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+<div id="sparkles"></div>
+
+<div class="container" id="introContainer">
+  <h1 id="msg">You’ve received a gift 🎁</h1>
+  
+  <div class="gift-wrapper" id="giftWrapper">
+    <div class="gift" id="gift">
+      <div class="ribbon-h"></div>
+      <div class="ribbon-v"></div>
+      <div class="lid"></div>
+    </div>
+  </div>
+</div>
+
+<div class="card" id="card">
+  <h2>🎉 Happy Birthday corrupt_tej 🎉</h2>
+  <strong>Congratulations on turning 14 years old!</strong>
+  <p>May your day be filled with joy, fun, and awesome surprises.<br>Keep being amazing 💫</p>
+</div>
+
+<!-- Sound effects -->
+<audio id="confettiSound" preload="auto">
+  <source src="https://cdn.pixabay.com/download/audio/2023/08/07/audio_6d4c8d6d8d.mp3?filename=confetti-pop-1-20230807.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="celebrateSound" preload="auto">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8f6b7d8f.mp3?filename=celebration-sparkle-20220315.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const introContainer = document.getElementById('introContainer');
+  const msg = document.getElementById('msg');
+  const giftWrapper = document.getElementById('giftWrapper');
+  const gift = document.getElementById('gift');
+  const card = document.getElementById('card');
+  const sparklesContainer = document.getElementById('sparkles');
+  const confettiSound = document.getElementById('confettiSound');
+  const celebrateSound = document.getElementById('celebrateSound');
+
+  // Fade in message & gift
+  setTimeout(() => {
+    msg.classList.add('visible');
+  }, 400);
+
+  let opened = false;
+
+  giftWrapper.addEventListener('click', () => {
+    if (opened) return;
+    opened = true;
+
+    gift.classList.add('open');
+
+    setTimeout(() => {
+      introContainer.classList.add('hide');
+      giftWrapper.classList.add('hide');
+    }, 1100);
+
+    setTimeout(() => {
+      card.classList.add('show');
+      sparklesContainer.classList.add('visible');
+      createSparkles();
+      launchConfettiExplosion();
+      launchBalloons();
+
+      confettiSound.currentTime = 0;
+      confettiSound.volume = 0.7;
+      confettiSound.play().catch(() => {});
+
+      celebrateSound.currentTime = 0;
+      celebrateSound.volume = 0.4;
+      celebrateSound.play().catch(() => {});
+    }, 1600);
+  });
+
+  function createSparkles() {
+    for (let i = 0; i < 60; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      if (Math.random() > 0.6) sparkle.classList.add('star');
+
+      sparkle.style.left = Math.random() * 100 + 'vw';
+      sparkle.style.top = Math.random() * 100 + 'vh';
+      sparkle.style.width = sparkle.style.height = (Math.random() * 6 + 3) + 'px';
+      sparkle.style.animationDelay = Math.random() * 3 + 's';
+      sparkle.style.animationDuration = (1.8 + Math.random() * 2.5) + 's';
+
+      sparklesContainer.appendChild(sparkle);
+
+      // Remove after ~10s to keep performance good
+      setTimeout(() => sparkle.remove(), 12000);
+    }
+  }
+
+  function launchConfettiExplosion() {
+    const colors = [
+      '#ff6bcb', '#ff4d6d', '#ff758f',
+      '#a78bfa', '#7c3aed', '#c084fc',
+      '#fde68a', '#fbbf24', '#facc15',
+      '#7dd3fc', '#38bdf8', '#0ea5e9',
+      '#34d399', '#10b981', '#059669',
+      '#f472b6', '#ec4899', '#db2777'
+    ];
+
+    for (let i = 0; i < 180; i++) {
+      setTimeout(() => {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        const angle = Math.random() * 360;
+        const velocity = 160 + Math.random() * 360;
+        const tx = Math.cos(angle * Math.PI / 180) * velocity + 'px';
+        const ty = Math.sin(angle * Math.PI / 180) * velocity + 'px';
+        c.style.setProperty('--tx', tx);
+        c.style.setProperty('--ty', ty);
+        c.style.background = colors[Math.floor(Math.random() * colors.length)];
+        c.style.left = '50%';
+        c.style.top = '50%';
+        c.style.transform = `rotate(${Math.random()*360}deg)`;
+        c.style.borderRadius = `${Math.random()*6 + 2}px`;
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 4000);
+      }, i * 12);
+    }
+  }
+
+  function launchBalloons() {
+    const emojis = ['🎈', '🎈', '🥳', '🎉', '🎂', '💫', '🪅', '🎁', '🌟'];
+    for (let i = 0; i < 16; i++) {
+      setTimeout(() => {
+        const b = document.createElement('div');
+        b.className = 'balloon';
+        b.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        b.style.left = (5 + Math.random() * 90) + 'vw';
+        b.style.animationDuration = (6 + Math.random() * 10) + 's';
+        b.style.animationDelay = (Math.random() * 1.5) + 's';
+        document.body.appendChild(b);
+        setTimeout(() => b.remove(), 20000);
+      }, i * 280);
+    }
+  }
+
+  // Background particles
+  function createParticle() {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.width = p.style.height = (Math.random() * 5 + 3) + 'px';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = (18 + Math.random() * 24) + 's';
+    p.style.animationDelay = Math.random() * 12 + 's';
+    document.getElementById('particles').appendChild(p);
+    setTimeout(() => p.remove(), 60000);
+  }
+  setInterval(createParticle, 900);
+</script>
+</body>
+</html>
