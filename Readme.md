@@ -4,8 +4,6 @@ A fun, interactive single-file HTML birthday surprise page with smooth 3D animat
 
 Just click the gift box → magic happens! ✨
 
-[preview](https://robonded.github.io/Happybirthday/)  
-
 ## Features
 
 - Beautiful dark aesthetic with soft gradients
